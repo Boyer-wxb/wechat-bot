@@ -21,22 +21,34 @@ export async function defaultMessage(msg, bot) {
   const isRoom = roomWhiteList.includes(roomName) && content.includes(`${botName}`) // 是否在群聊白名单内并且艾特了机器人
   const isAlias = aliasWhiteList.includes(remarkName) || aliasWhiteList.includes(name) // 发消息的人是否在联系人白名单内
   const isBotSelf = botName === remarkName || botName === name // 是否是机器人自己
+  // console.debug('msg解析:',contact,'|', receiver,'|', content, '|',room, '|',roomName,'|', alias,'|', remarkName,'|', name, '|',isText,'|', isRoom, '|',isAlias, '|',isBotSelf)
   // TODO 你们可以根据自己的需求修改这里的逻辑
   if (isText && !isBotSelf) {
-    console.log(JSON.stringify(msg))
-    if ((Date.now() - 1e3 * msg.payload.timestamp) > 3000) return 
-    if (!content.startsWith('? ') && !content.startsWith('？ ') && !content.startsWith('> ')) return 
+    const now = Date.now();
+    if ((now - 1e3 * msg.payload.timestamp) > 200000
+    ) {
+      console.debug('跳过过期消息：',content , ', 超时时间：', now - 1e3 * msg.payload.timestamp)
+      return 
+    }
+    // if (!content.startsWith('? ') && !content.startsWith('？ ') && !content.startsWith('> ')) {
+    //   console.log('跳过?判断')
+    //   return 
+    // }
+    console.debug(JSON.stringify(msg))
+
     try {
-      const trimed = content.substr(2)
-      if (trimed.length < 5) return 
-      
+      const trimed = content.substr(1)
+      if (trimed.length < 5) 
+      {
+        console.debug('msg trimed:', trimed)
+        return 
+      }
       // 区分群聊和私聊
       if (isRoom && room) {
         await room.say(await getReply(trimed.replace(`${botName}`, '')))
-        return
-      }
+      } 
       // 私人聊天，白名单内的直接发送
-      if (isAlias && !room) {
+      else if (isAlias && !room) {
         await contact.say(await getReply(trimed))
       }
     } catch (e) {
