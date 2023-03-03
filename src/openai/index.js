@@ -20,7 +20,9 @@ export async function getOpenAiReply(prompt) {
     top_p: 1,
     presence_penalty: 0.6,
   })
-  console.log('response:::::::', response)
+  console.log('↓↓↓↓↓↓↓↓↓↓response↓↓↓↓↓↓↓↓↓↓')
+  console.log(response)
+  console.log('↑↑↑↑↑↑↑↑↑response↑↑↑↑↑↑↑↑↑')
   const reply = await markdownToText(response.data.choices[0].text)
   return `${reply}\nvia ChatGPT`
 }
