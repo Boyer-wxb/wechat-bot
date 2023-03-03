@@ -96,6 +96,7 @@ export async function chatMessage(msg, bot) {
 
   try {
     const res = await getOpenAiChat(currentSession.messages)
+    res.message.content = res.message.content.replace('(\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029))', '')
     currentSession.messages.push(res.message)
     await room.say(res.reply)
   } catch (error) {
