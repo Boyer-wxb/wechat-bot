@@ -33,9 +33,9 @@ export async function getOpenAiChat(messages) {
     model: "gpt-3.5-turbo",
     messages: messages,
     temperature: 0.3, // 每次返回的答案的相似度0-1（0：每次都一样，1：每次都不一样）
-    max_tokens: 4000,
-    top_p: 1,
-    presence_penalty: 0.6,
+    // max_tokens: 4000,
+    // top_p: 1,
+    // presence_penalty: 0.6,
   })
   console.log('↓↓↓↓↓↓↓↓↓↓response↓↓↓↓↓↓↓↓↓↓')
   console.log(JSON.stringify(response.data))
