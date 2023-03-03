@@ -15,7 +15,24 @@ export async function getOpenAiReply(prompt) {
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
     prompt: prompt,
-    temperature: 0.9, // 每次返回的答案的相似度0-1（0：每次都一样，1：每次都不一样）
+    temperature: 0.5, // 每次返回的答案的相似度0-1（0：每次都一样，1：每次都不一样）
+    max_tokens: 4000,
+    top_p: 1,
+    presence_penalty: 0.6,
+  })
+  console.log('↓↓↓↓↓↓↓↓↓↓response↓↓↓↓↓↓↓↓↓↓')
+  console.log(JSON.stringify(response.data))
+  console.log('↑↑↑↑↑↑↑↑↑response↑↑↑↑↑↑↑↑↑')
+  const reply = await markdownToText(response.data.choices[0].text)
+  console.log('reply----->', reply)
+  return `${reply}\nvia ChatGPT`
+}
+
+export async function getOpenAiChat(messages) {
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: messages,
+    temperature: 0.3, // 每次返回的答案的相似度0-1（0：每次都一样，1：每次都不一样）
     max_tokens: 4000,
     top_p: 1,
     presence_penalty: 0.6,

@@ -1,6 +1,6 @@
 import { WechatyBuilder, ScanStatus, log } from 'wechaty'
 import qrTerminal from 'qrcode-terminal'
-import { defaultMessage, shardingMessage } from './sendMessage.js'
+import { defaultMessage, shardingMessage, chatMessage } from './sendMessage.js'
 // 扫码
 function onScan(qrcode, status) {
   if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
@@ -28,12 +28,13 @@ function onLogout(user) {
 
 // 收到好友请求
 async function onFriendShip(friendship) {
-  const frienddShipRe = /chatgpt|chat/
-  if (friendship.type() === 2) {
-    if (frienddShipRe.test(friendship.hello())) {
-      await friendship.accept()
-    }
-  }
+  // const frienddShipRe = /chatgpt|chat/
+  // if (friendship.type() === 2) {
+  //   if (frienddShipRe.test(friendship.hello())) {
+  //     await friendship.accept()
+  //   }
+  // }
+  console.log('收到好友请求:', JSON.stringify(friendship))
 }
 
 /**
@@ -44,9 +45,11 @@ async function onFriendShip(friendship) {
  */
 async function onMessage(msg) {
   // 默认消息回复
-  await defaultMessage(msg, bot)
+  // await defaultMessage(msg, bot)
   // 消息分片
   // await shardingMessage(msg,bot)
+  // 聊天
+  await chatMessage(msg, bot)
 }
 
 // 初始化机器人
@@ -61,7 +64,7 @@ export const bot = WechatyBuilder.build({
     ...CHROME_BIN
   },
 })
-console.log('初始化机器人完成:', bot.name())
+console.log('初始化机器人完成:', bot.name(), '时间戳：', Date.now())
 
 // 扫码
 bot.on('scan', onScan)
