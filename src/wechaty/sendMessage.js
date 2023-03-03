@@ -99,11 +99,11 @@ export async function chatMessage(msg, bot) {
 }
 
 function buildUser(msg) {
-  return { role: 'user', message: msg}
+  return { role: 'user', content: msg}
 }
 
 function buildAss(msg) {
-  return { role: 'assistant', message: msg}
+  return { role: 'assistant', content: msg}
 }
 
 function freshSession() {
