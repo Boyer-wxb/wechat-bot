@@ -1,6 +1,6 @@
 import { WechatyBuilder, ScanStatus, log } from 'wechaty'
 import qrTerminal from 'qrcode-terminal'
-import { defaultMessage, shardingMessage, chatMessage } from './sendMessage.js'
+import { defaultMessage, chatMessage } from './sendMessage.js'
 // 扫码
 function onScan(qrcode, status) {
   if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
@@ -46,8 +46,6 @@ async function onFriendShip(friendship) {
 async function onMessage(msg) {
   // 默认消息回复
   // await defaultMessage(msg, bot)
-  // 消息分片
-  // await shardingMessage(msg,bot)
   // 聊天
   await chatMessage(msg, bot)
 }
@@ -57,8 +55,8 @@ const CHROME_BIN = process.env.CHROME_BIN ? { endpoint: process.env.CHROME_BIN }
 console.log('正在初始化机器人...')
 export const bot = WechatyBuilder.build({
   name: 'WechatEveryDay',
-  puppet: 'wechaty-puppet-wechat4u', // 如果有token，记得更换对应的puppet
-  // puppet: 'wechaty-puppet-wechat', // 如果 wechaty-puppet-wechat 存在问题，也可以尝试使用上面的 wechaty-puppet-wechat4u ，记得安装 wechaty-puppet-wechat4u
+  // puppet: 'wechaty-puppet-wechat4u', // 如果有token，记得更换对应的puppet
+  puppet: 'wechaty-puppet-wechat', // 如果 wechaty-puppet-wechat 存在问题，也可以尝试使用上面的 wechaty-puppet-wechat4u ，记得安装 wechaty-puppet-wechat4u
   puppetOptions: {
     uos: true,
     ...CHROME_BIN
