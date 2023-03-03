@@ -61,7 +61,7 @@ export const bot = WechatyBuilder.build({
     ...CHROME_BIN
   },
 })
-console.log('初始化机器人完成:', bot.name)
+console.log('初始化机器人完成:', bot.name())
 
 // 扫码
 bot.on('scan', onScan)
