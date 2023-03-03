@@ -51,6 +51,7 @@ async function onMessage(msg) {
 
 // 初始化机器人
 const CHROME_BIN = process.env.CHROME_BIN ? { endpoint: process.env.CHROME_BIN } : {}
+console.log('正在初始化机器人...')
 export const bot = WechatyBuilder.build({
   name: 'WechatEveryDay',
   // puppet: 'wechaty-puppet-wechat4u', // 如果有token，记得更换对应的puppet
@@ -60,6 +61,7 @@ export const bot = WechatyBuilder.build({
     ...CHROME_BIN
   },
 })
+console.log('初始化机器人完成:', bot.name)
 
 // 扫码
 bot.on('scan', onScan)
