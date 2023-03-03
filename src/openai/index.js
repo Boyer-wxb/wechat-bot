@@ -21,7 +21,7 @@ export async function getOpenAiReply(prompt) {
     presence_penalty: 0.6,
   })
   console.log('↓↓↓↓↓↓↓↓↓↓response↓↓↓↓↓↓↓↓↓↓')
-  console.log(response.data.choices[0].text)
+  console.log(JSON.stringify(response.data))
   console.log('↑↑↑↑↑↑↑↑↑response↑↑↑↑↑↑↑↑↑')
   const reply = await markdownToText(response.data.choices[0].text)
   console.log('reply----->', reply)
