@@ -57,7 +57,7 @@ export async function defaultMessage(msg, bot) {
   }
 }
 
-const currentSession = buildSession()
+var currentSession = buildSession()
 /**
  * 聊天消息发送
  * @param msg
