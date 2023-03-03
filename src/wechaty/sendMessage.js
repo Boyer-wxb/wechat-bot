@@ -92,7 +92,9 @@ export async function chatMessage(msg, bot) {
   }
 
   try {
-    await room.say(await getOpenAiChat(currentSession.messages))
+    const res = await getOpenAiChat(currentSession.messages)
+    currentSession.messages.push(res.message)
+    await room.say(res.reply)
   } catch (error) {
     console.error(error)
   }

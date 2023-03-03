@@ -40,9 +40,12 @@ export async function getOpenAiChat(messages) {
   console.log('↓↓↓↓↓↓↓↓↓↓response↓↓↓↓↓↓↓↓↓↓')
   console.log(JSON.stringify(response.data))
   console.log('↑↑↑↑↑↑↑↑↑response↑↑↑↑↑↑↑↑↑')
-  const reply = await markdownToText(response.data.choices[0].text)
+  const reply = await markdownToText(response.data.choices[0].message.content)
   console.log('reply----->', reply)
-  return `${reply}\nvia ChatGPT`
+  return {
+    message: response.data.choices[0].message,
+    reply: reply
+  }
 }
 
 async function markdownToText(markdown) {
