@@ -12,7 +12,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration)
 
 export async function getOpenAiReply(prompt) {
-  // console.log('🚀🚀🚀 / prompt', prompt)
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
     prompt: prompt,
@@ -21,8 +20,8 @@ export async function getOpenAiReply(prompt) {
     top_p: 1,
     presence_penalty: 0.6,
   })
+  console.log('response:::::::', response)
   const reply = await markdownToText(response.data.choices[0].text)
-  // console.log('🚀🚀🚀 / reply', reply)
   return `${reply}\nvia ChatGPT`
 }
 
