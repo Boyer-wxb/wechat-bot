@@ -134,6 +134,6 @@ function buildSession() {
 
 function fmtMsg(){
   currentSession.messages.forEach(e=>{
-    e.content = e.content.replace('(\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029))', '')
+    e.content = e.content.replace('(\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029))', '').replace('via ChatGPT', '')
   })
 }

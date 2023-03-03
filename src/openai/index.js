@@ -44,7 +44,7 @@ export async function getOpenAiChat(messages) {
   console.log('reply----->', reply)
   return {
     message: response.data.choices[0].message,
-    reply: reply
+    reply: `${reply}\nvia ChatGPT`
   }
 }
 
