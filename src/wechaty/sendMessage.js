@@ -79,7 +79,9 @@ export async function chatMessage(msg, bot) {
   const isBotSelf = botName === remarkName || botName === name // 是否是机器人自己
 
   if (!isRoom || !isText) return
-  if (content.indexOf('开始新会话') > 0) currentSession = buildSession()
+  if (content.indexOf('开始新会话') > 0) {
+    currentSession = buildSession()
+  }
   freshSession()
   if(isBotSelf){
     currentSession.messages.push(buildAss(content))
