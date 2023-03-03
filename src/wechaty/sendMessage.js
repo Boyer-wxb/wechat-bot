@@ -95,8 +95,8 @@ export async function chatMessage(msg, bot) {
   }
 
   try {
+    fmtMsg()
     const res = await getOpenAiChat(currentSession.messages)
-    res.message.content = res.message.content.replace('(\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029))', '')
     currentSession.messages.push(res.message)
     await room.say(res.reply)
   } catch (error) {
@@ -131,6 +131,12 @@ function buildSession() {
     messages: [],
     maxContext: 20, //最大上下文数量
   }
+}
+
+function fmtMsg(){
+  currentSession.messages.forEach(e=>{
+    e.content = e.content.replace('(\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029))', '')
+  })
 }
 
 /**
