@@ -16,7 +16,7 @@ export async function getOpenAiReply(prompt) {
     model: 'text-davinci-003',
     prompt: prompt,
     temperature: 0.9, // 每次返回的答案的相似度0-1（0：每次都一样，1：每次都不一样）
-    max_tokens: 7,
+    max_tokens: 4000,
     top_p: 1,
     presence_penalty: 0.6,
   })
