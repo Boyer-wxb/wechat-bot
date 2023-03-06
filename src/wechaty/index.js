@@ -1,6 +1,6 @@
 import { WechatyBuilder, ScanStatus, log } from 'wechaty'
 import qrTerminal from 'qrcode-terminal'
-import { defaultMessage, chatMessage } from './sendMessage.js'
+import { defaultMessage, chatMessage, transMsg } from './sendMessage.js'
 // 扫码
 function onScan(qrcode, status) {
   if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
@@ -48,6 +48,8 @@ async function onMessage(msg) {
   // await defaultMessage(msg, bot)
   // 聊天
   await chatMessage(msg, bot)
+  // 消息转发
+  await transMsg(msg, bot)
 }
 
 // 初始化机器人

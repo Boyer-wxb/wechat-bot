@@ -137,3 +137,16 @@ function fmtMsg(){
     e.content = e.content.replace('(\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029))', '').replace('via ChatGPT', '')
   })
 }
+
+//转发私聊消息
+export async function transMsg(msg, bot) {
+  const room = msg.room()
+  const roomName = (await room?.topic()) || null // 群名称
+
+  if (!roomName) {
+    //私聊
+    bot.Contact.find('王有才').then((conc)=>{
+      conc.say(msg.from().name()+': \n'+msg)
+    })
+  }
+}
