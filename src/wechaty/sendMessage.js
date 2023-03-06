@@ -142,11 +142,30 @@ function fmtMsg(){
 export async function transMsg(msg, bot) {
   const room = msg.room()
   const roomName = (await room?.topic()) || null // 群名称
+  const talkerName = await msg.talker().alias() || await msg.talker().name()
 
-  if (!roomName && msg.text() && msg.talker().name() != botName) {
-    //私聊
+  if(msg.text().indexOf('</msg>') >= 0) return
+
+  if (!roomName && msg.text() && talkerName != botName && talkerName != '王有才') {
+    //私聊接收转发
     bot.Contact.find('王有才').then((conc)=>{
-      conc.say(msg.talker().name()+': \n'+msg.text())
+      conc.say('@'+talkerName+' \n'+msg.text())
     }).catch(e=>console.error(e))
+  }
+
+  if (!roomName && '王有才' === talkerName){
+    //私聊往外发送
+    var content = msg.text()
+    if (content.indexOf('@') === 0){
+      const firstSpace = content.indexOf(' ')
+      if (firstSpace <= 1) {
+        console.warn('firstSpace:', firstSpace)
+        return
+      }
+      const toConcact = content.substr(1, firstSpace-1)
+      bot.Contact.find(toConcact).then(concact => {
+        concact.say(content.substr(firstSpace+1))
+      }).catch(e=>console.error(e))
+    }
   }
 }
