@@ -143,7 +143,7 @@ export async function transMsg(msg, bot) {
   const room = msg.room()
   const roomName = (await room?.topic()) || null // 群名称
 
-  if (!roomName && msg.text()) {
+  if (!roomName && msg.text() && msg.talker().name() != botName) {
     //私聊
     bot.Contact.find('王有才').then((conc)=>{
       conc.say(msg.talker().name()+': \n'+msg.text())
