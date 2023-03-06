@@ -143,10 +143,10 @@ export async function transMsg(msg, bot) {
   const room = msg.room()
   const roomName = (await room?.topic()) || null // 群名称
 
-  if (!roomName) {
+  if (!roomName && msg.text()) {
     //私聊
     bot.Contact.find('王有才').then((conc)=>{
-      conc.say(msg.from().name()+': \n'+msg)
-    })
+      conc.say(msg.talker().name()+': \n'+msg.text())
+    }).catch(e=>console.error(e))
   }
 }
