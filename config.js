@@ -2,7 +2,7 @@
 export const botName = '王钢蛋'
 
 // 群聊白名单，白名单内的群聊才会自动回复
-export const roomWhiteList = ['大聪明帮你解答', '取个名吧', '我是阿古斯之盾', '王诛魔&刘斩仙&赵日天']
+export const roomWhiteList = ['大聪明帮你解答', '取个名吧', '我是阿古斯之盾', '王诛魔&刘斩仙&赵日天', '民族数字化-低代码']
 
 // 联系人白名单，白名单内的联系人才会自动回复  备注名或微信名
 export const aliasWhiteList = ['王有才']
